@@ -1,6 +1,6 @@
 # YouTube Clone
 
-Bem-vindo ao clone do YouTube! Este projeto é uma **aplicação web responsiva (Single Page Application)** construída do zero para replicar a interface e a experiência moderna do YouTube real. \n\nEle se conecta oficialmente à infraestrutura da **YouTube Data API v3** do Google Cloud para buscar conteúdos originais, exibir listagens flexíveis de vídeos, suportar paginação infinita, rodar o player de vídeo autêntico em iFrame e mostrar estatísticas e comentários dinâmicos em tempo real para os usuários.
+Bem-vindo ao clone do YouTube! Este projeto é uma **aplicação web responsiva (Single Page Application)** construída do zero para replicar a interface e a experiência moderna do YouTube real. \n\nEle se conecta oficialmente à infraestrutura da **YouTube Data API v3** do Google Cloud para buscar conteúdos originais, exibir listagens flexíveis de vídeos, suportar paginação infinita, rodar o player de vídeo autêntico em iFrame e mostrar estatísticas e comentários dinâmicos em tempo real para os usuários. Além disso, traz um Diferencial Inovador: um **Assistente Copiloto Integrado (Ask AI) alimentado pela Inteligência Artificial do Google Gemini** para responder dúvidas contextuais e resumir os vídeos assistidos.
 
 Neste documento, você encontrará primeiro o **Quick Start** (para iniciar e rodar o projeto rapidamente) e, na segunda metade, o **Hands-on & Arquitetura Detalhada**, contendo todo o racional tecnológico, de negócios e de escalabilidade por trás da minha construção.
 
