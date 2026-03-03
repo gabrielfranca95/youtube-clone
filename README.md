@@ -8,6 +8,8 @@ Neste documento, você encontrará primeiro o **Quick Start** (para iniciar e ro
 
 ## ⚡ Quick Start
 
+🚀 **Teste a aplicação ao vivo em:** https://gabrielfranca95.github.io/youtube-clone/
+
 ## 0. Requisitos para iniciar
 
 Node.js: Instale a versão v18 ou superior.
