@@ -1,6 +1,6 @@
 # YouTube Clone
 
-Bem-vindo ao clone do YouTube, um projeto construído em Vue para interagir com a **YouTube Data API v3**.
+Bem-vindo ao clone do YouTube! Este projeto é uma **aplicação web responsiva (Single Page Application)** construída do zero para replicar a interface e a experiência moderna do YouTube real. \n\nEle se conecta oficialmente à infraestrutura da **YouTube Data API v3** do Google Cloud para buscar conteúdos originais, exibir listagens flexíveis de vídeos, suportar paginação infinita, rodar o player de vídeo autêntico em iFrame e mostrar estatísticas e comentários dinâmicos em tempo real para os usuários.
 
 Neste documento, você encontrará primeiro o **Quick Start** (para iniciar e rodar o projeto rapidamente) e, na segunda metade, o **Hands-on & Arquitetura Detalhada**, contendo todo o racional tecnológico, de negócios e de escalabilidade por trás da minha construção.
 
@@ -72,14 +72,17 @@ Ainda que a contagem de _Dislike_ original não retorne pelo `part=statistics` c
 
 Desenvolvi todo o Grid baseado em flexbox de `12-colunas` usando classes como `xs`, `sm`, `md` e `lg` para garantir que o _VideoCard_ escorra responsivamente desde smartphones de (320px) com Cards expandidos no 100% de block, até desktops ultrawides que apresentam até 4 ou 5 colunas de forma graciosa. E o Player via _iframe_ utiliza truques modernos CSS (`padding-bottom: 56.25%`) para suportar forçadamente qualquer _resize_ de tela no aspect _16:9_.
 
-### 🌟 Funcionalidades Avançadas
+### 🌟 Funcionalidades Avançadas (Diferenciais Arquiteturais do Projeto)
 
-Além do escopo original do clone padrão, pensei nas seguintes soluções para demonstrar escalabilidade, UX e domínio de Stores:
+Além do escopo básico de um clone comum (bater na API e listar vídeos estáticos), este projeto foi arquitetado com **features de nível sênior**, com foco agressivo em performance, escalabilidade e excelente UX (User Experience). Estas são as "cerejas do bolo" que diferenciam a aplicação de ponta a ponta:
 
-- **Paginação Dupla Inteligente e Laços Transparentes**: O endpoint de `/search` do YouTube costuma poluir buscas genéricas devolvendo apenas Shorts (`videoDuration='short'`). Recriei a `Pinia Store` usando uma "Paginação com Garantia Mínima". Um laço `while` assíncrono trabalha em segundo plano esvaziando a API repetidas vezes até conseguir separar nativamente **no mínimo 6 vídeos longos** para alimentar exclusivamente o painel infinito principal, garantindo que o seu _Scroll_ de mouse evite esbarrar em blocos vazios. -**Carrossel Nativo e Requisição Restrita**: Para as prateleiras do topo da página ("Shorts"), nós disparamos buscas exclusivas (`loadMoreShorts()`) injetando a flag estrita `videoDuration="short"` da API Google. Dessa forma, ela nos devolve apenas vídeos orgânicos de baixo tempo, renderizados num componente Vue horizontal exclusivo respeitando _aspect-ratio_ mobile 9:16. E tudo isso com _tokens_ isolados na memória.
+- **Paginação Dupla Inteligente e Laços Transparentes**: O endpoint de `/search` do YouTube costuma poluir buscas genéricas devolvendo apenas Shorts (`videoDuration='short'`). Recriei a `Pinia Store` usando uma "Paginação com Garantia Mínima". Um laço `while` assíncrono trabalha em segundo plano esvaziando a API repetidas vezes até conseguir separar nativamente **no mínimo 6 vídeos longos** para alimentar exclusivamente o painel infinito principal, garantindo que o seu _Scroll_ de mouse evite esbarrar em blocos vazios.
+- **Carrossel Nativo e Requisição Restrita**: Para as prateleiras do topo da página ("Shorts"), nós disparamos buscas exclusivas (`loadMoreShorts()`) injetando a flag estrita `videoDuration="short"` da API Google. Dessa forma, ela nos devolve apenas vídeos orgânicos de baixo tempo, renderizados num componente Vue horizontal exclusivo respeitando _aspect-ratio_ mobile 9:16. E tudo isso com _tokens_ isolados na memória.
 - **Micro-Engine de LocalStorage (Histórico Offline)**: Criei para dar vida à Categoria `Histórico` da _Sidebar_. Toda vez que o `<VideoCard>` é clicado ou roteado, o Push não se restringe à URL; ele dispara uma Action da View para o Store injetando uma _Payload JSON_ otimizada na memória persistente liminar do navegador do usuário até o hard-limit de `50` vídeos. Com apenas um clique, o Store "aborta" a conexão HTTP de Categoria e espelha em 0.1ms o cache do HD no GridLayout original da tela.
 - **Drawer e Filtros Injetáveis (Router)**: Implementei o Layout Base do Material (`App.vue` com V-App-Bar e V-Navigation-Drawer dinâmico). Nele as Categorias (Música, Jogos) não são estáticas — elas integram nativamente com o App e engatilham Hooks preenchendo novos Motor-States do Pinia. O menu lateral empurra seu conteúdo como no YouTube Web oficial.
 - **Otimização N+1 Queries (Batch Requesting)**: Para contornar a limitação da API que não envia `duration` nas listagens, o `loadMore` agrupa os 20 IDs encontrados e dispara **uma única** segunda viajação na rede na API restrita de `contentDetails`. Formatei usando funções regex proprietárias o parse ISO 8601 (`PT4M5S` para `04:05`). Isso não queima os limites mensais da sua key no Google Cloud Platform!
+- **Inteligência Artificial Integrada (Ask AI)**: Diferencial inovador! Modal com assistente "Gemini AI" que utiliza IA Generativa para responder perguntas do usuário em contexto real utilizando os metadados e fragmentos do vídeo assistido — servindo como um copiloto dinâmico de visualização.
+- **Comentários Lazy-Loaded da Comunidade**: Carrega as _threads_ originais de comentários publicadas lá no YouTube e as renderiza na seção inferior usando técnicas de Lazy Loading, sem congelar o Time to Interactive (TTI) do Player sendo reproduzido.
 
 ---
 
