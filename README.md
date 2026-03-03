@@ -27,7 +27,10 @@ npm install
 cp .env.example .env
 ```
 
-**Importante:** Gere sua API KEY em [Google Cloud Console](https://console.cloud.google.com/) ativando a `YouTube Data API v3` e coloque em seu `.env` na chave `VITE_YOUTUBE_API_KEY`.
+**Importante:**
+
+1. Gere sua API KEY em [Google Cloud Console](https://console.cloud.google.com/) ativando a `YouTube Data API v3` e coloque em seu `.env` na chave `VITE_YOUTUBE_API_KEY`.
+2. Gere sua API KEY da IA copiando no [Google AI Studio](https://aistudio.google.com/) para ativar o Assistente Copiloto e coloque em seu `.env` na chave `VITE_GEMINI_API_KEY`.
 
 ## 2. Rodar a Aplicação
 
