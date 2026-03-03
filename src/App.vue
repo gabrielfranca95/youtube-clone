@@ -22,10 +22,20 @@ const toggleDrawer = () => {
 
 const forceCategory = async (category: string) => {
   if (mobile.value) drawer.value = false;
+  
+  // Limpa também a query de busca visualmente se voltar pro início
+  if (category === "Tudo") {
+    store.searchQuery = "";
+  }
+  
+  // Força redirecionamento em SPA para a Home limpa
   if (router.currentRoute.value.name !== "home") {
     await router.push({ name: "home" });
   }
-  store.search(store.searchQuery || "", category);
+  
+  // Rola suavemente pro topo e recarrega categoria
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  store.search("", category);
 };
 
 const openHistory = async () => {
